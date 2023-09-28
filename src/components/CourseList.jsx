@@ -1,9 +1,11 @@
+import './CourseList.css'
+import { CourseCard } from './CourseCard';
+
 export const CourseList = ({ courses }) => {
     return (
-        <div>
+        <div className='class-list'>
             {Object.entries(courses).map(([id, course]) =>
-                <p key={id}>{course.term} CS{course.number}: {course.title}</p>)}
+                <CourseCard key={id} course={course} />)}
         </div>
-
     );
 };
