@@ -1,6 +1,6 @@
 import './CourseList.css'
 
-export const CourseCard = ({course }) => {
+export const CourseCard = ({ course }) => {
     return (
         <div className='class-card'>
             <div className='card-top'>
