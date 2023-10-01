@@ -2,9 +2,9 @@ import './CourseList.css'
 
 const TermButton = ({ term, selection, setSelection }) => (
     <div>
-        <input type="radio" id={term} className="btn-check" checked={term === selection} autoComplete="off"
+        <input type="radio" id={term} className="term-select-btn" checked={term === selection} autoComplete="off"
             onChange={() => setSelection(term)} />
-        <label className="btn btn-success mb-1 p-2" htmlFor={term}>
+        <label className="term-select-label" htmlFor={term}>
             {term}
         </label>
     </div>
@@ -12,7 +12,7 @@ const TermButton = ({ term, selection, setSelection }) => (
 
 export const TermSelector = ({ options, selection, setSelection }) => {
     return (
-        <div className="btn-group">
+        <div className="term-selector-div">
             {options.map(term => <TermButton key={term} term={term} selection={selection} setSelection={setSelection} />)}
         </div>
     );

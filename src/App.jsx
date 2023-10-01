@@ -4,7 +4,10 @@ import { CourseList } from './components/CourseList'
 import './App.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useJsonQuery } from './utilities/fetch';
-import { TermSelector } from './components/TermSelector';
+import { MenuBar } from './components/MenuBar';
+import { Modal } from './components/Modal';
+import { Schedule } from './components/Schedule';
+
 
 const queryClient = new QueryClient();
 const termOptions = ["Fall", "Winter", "Spring"];
@@ -13,6 +16,7 @@ const Main = () => {
   const [termSelection, setSelection] = useState(termOptions[0]);
   const [data, isLoading, error] = useJsonQuery('https://courses.cs.northwestern.edu/394/guides/data/cs-courses.php');
   const [selectedCourses, setSelectedCourses] = useState([]);
+  const [openSchedule, setOpenSchedule] = useState(false);
 
   if (error) return <h1>Error loading course data: {`${error}`}</h1>;
   if (isLoading) return <h1>Loading course data...</h1>;
@@ -27,9 +31,15 @@ const Main = () => {
     )
   };
 
+  const openModal = () => setOpenSchedule(true);
+  const closeModal = () => setOpenSchedule(false);
+
   return <div className="App">
+    <Modal title={`${termSelection} Class Schedule`} open={openSchedule} close={closeModal}>
+      <Schedule selectedCourses={courses.filter(course => selectedCourses.includes(course[0]))} />
+    </Modal>
     <Banner title={data.title} />
-    <TermSelector options={termOptions} selection={termSelection} setSelection={setSelection} />
+    <MenuBar options={termOptions} selection={termSelection} setSelection={setSelection} openModal={openModal} />
     <CourseList courses={courses} selected={selectedCourses} toggleSelected={toggleSelected} />
   </div>
 }
