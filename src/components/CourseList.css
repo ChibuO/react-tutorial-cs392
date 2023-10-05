@@ -78,3 +78,9 @@
     color: black;
 }
 
+.disabled-card {
+    background-color: white;
+    color: darkgray;
+    border-color: lightgray;
+    cursor: default;
+}

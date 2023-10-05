@@ -4,7 +4,7 @@ export const Schedule = ({ selectedCourses }) => {
     return <div className="schedule-modal">
         {
             selectedCourses.length === 0
-                ? <p>No Courses Selected. Select a course to add it to your schedule.</p>
+                ? <p>No Courses selected. Select a course to add it to your schedule.</p>
                 : <table>
                     <thead>
                         <tr>

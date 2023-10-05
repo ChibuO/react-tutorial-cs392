@@ -7,6 +7,7 @@ import { useJsonQuery } from './utilities/fetch';
 import { MenuBar } from './components/MenuBar';
 import { Modal } from './components/Modal';
 import { Schedule } from './components/Schedule';
+import { getDisabled } from './utilities/time_conflict';
 
 
 const queryClient = new QueryClient();
@@ -16,6 +17,7 @@ const Main = () => {
   const [termSelection, setSelection] = useState(termOptions[0]);
   const [data, isLoading, error] = useJsonQuery('https://courses.cs.northwestern.edu/394/guides/data/cs-courses.php');
   const [selectedCourses, setSelectedCourses] = useState([]);
+  const [disabledCourses, setDisabledCourses] = useState([]);
   const [openSchedule, setOpenSchedule] = useState(false);
 
   if (error) return <h1>Error loading course data: {`${error}`}</h1>;
@@ -25,10 +27,13 @@ const Main = () => {
   let courses = Object.entries(data.courses).filter(course => course[1].term === termSelection);
 
   const toggleSelected = (item) => {
-    setSelectedCourses(selectedCourses.includes(item)
-      ? selectedCourses.filter(x => x !== item)
-      : [...selectedCourses, item]
-    )
+    if (!selectedCourses.includes(item)) {
+      setDisabledCourses(getDisabled([...selectedCourses, item], courses));
+      setSelectedCourses([...selectedCourses, item]);
+    } else {
+      setDisabledCourses(getDisabled(selectedCourses.filter(x => x !== item), courses));
+      setSelectedCourses(selectedCourses.filter(x => x !== item));
+    }
   };
 
   const openModal = () => setOpenSchedule(true);
@@ -40,7 +45,7 @@ const Main = () => {
     </Modal>
     <Banner title={data.title} />
     <MenuBar options={termOptions} selection={termSelection} setSelection={setSelection} openModal={openModal} />
-    <CourseList courses={courses} selected={selectedCourses} toggleSelected={toggleSelected} />
+    <CourseList courses={courses} selected={selectedCourses} disabled={disabledCourses} toggleSelected={toggleSelected} />
   </div>
 }
 
