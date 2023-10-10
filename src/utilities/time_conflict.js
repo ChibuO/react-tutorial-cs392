@@ -8,7 +8,7 @@ const daysMatch = (days1, days2) => {
     return match;
 }
 
-const parseTime = (time_range) => {
+export const parseTime = (time_range) => {
     time_range = time_range.split("-");
     const [start, end] = [time_range[0].split(":"), time_range[1].split(":")];
     const startDate = new Date();

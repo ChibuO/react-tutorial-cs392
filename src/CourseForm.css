@@ -26,13 +26,23 @@
 .text-input {
     padding: 5px 5px 0px 5px;
     font-size: 20px;
-    margin-right: 10px;
     width: 400px;
+    outline-color: rgb(6, 70, 70);
 }
 
 .invalid-feedback {
     color: red;
     font-size: 15px;
+}
+
+.error-input {
+    border-color: red;
+    border-radius: 3px;
+    border-style: solid;
+}
+
+.error-input:focus {
+    outline-color: red;
 }
 
 .button-bar {
