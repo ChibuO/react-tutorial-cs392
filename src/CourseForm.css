@@ -1,0 +1,46 @@
+.course-form {
+    margin: 15px 20px 10px 20px;
+    /* padding-top: 10px; */
+    padding-bottom: 10px;    
+    text-align: left;
+}
+
+.course-form h2 {
+    margin-bottom: 20px;
+}
+
+.entry-div {
+    margin: 10px 0px 10px 0px;
+    font-size: 20px;
+    display: flex;
+    align-items: end;
+    position: relative;
+}
+
+.entry-div label {
+    margin-right: 10px;
+    font-weight: 600;
+    width: 150px;
+}
+
+.text-input {
+    padding: 5px 5px 0px 5px;
+    font-size: 20px;
+    margin-right: 10px;
+    width: 400px;
+}
+
+.invalid-feedback {
+    color: red;
+    font-size: 15px;
+}
+
+.button-bar {
+    margin-top: 30px;
+}
+
+.courseform-btn {
+    font-size: 20px;
+    height: 40px;
+    margin-right: 20px;
+}
