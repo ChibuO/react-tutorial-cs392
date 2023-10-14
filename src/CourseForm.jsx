@@ -54,11 +54,13 @@ export const CourseForm = ({ courses }) => {
   const [course_id, courseInfo] = courses.filter((course) => (course[0] === edit_id))[0];
   const [update, result] = useDbUpdate(`/courses/${edit_id}`);
   const [state, change] = useFormData(validateUserData, courseInfo);
-  const initial_state = state;
   const navigate = useNavigate();
   const submit = (evt) => {
+    let current_state = Object.values(state.values);
+    let initial_state = Object.values(courseInfo);
+    let is_unchanged = current_state.every((val, index) => val === initial_state[index]);
     evt.preventDefault();
-    if (!state.errors && state !== initial_state) {
+    if (!state.errors && !is_unchanged) {
       update(state.values);
       // navigate(-1);
     }
