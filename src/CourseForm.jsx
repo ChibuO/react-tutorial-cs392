@@ -1,3 +1,4 @@
+import { useDbUpdate } from './utilities/firebase';
 import { useFormData } from './utilities/useFormData';
 import './CourseForm.css';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -38,12 +39,12 @@ const InputField = ({ name, text, state, change }) => (
   </div>
 );
 
-const ButtonBar = ({ disabled }) => {
-  const navigate = useNavigate();
+const ButtonBar = ({ message, disabled, navigate }) => {
   return (
     <div className="button-bar">
       <button type="button" className="courseform-btn" onClick={() => navigate(-1)}>Cancel</button>
       <button type="submit" className="courseform-btn" disabled={disabled}>Submit</button>
+      <span className="p-2">{message}</span>
     </div>
   );
 };
@@ -51,12 +52,15 @@ const ButtonBar = ({ disabled }) => {
 export const CourseForm = ({ courses }) => {
   const edit_id = useParams()["id"];
   const [course_id, courseInfo] = courses.filter((course) => (course[0] === edit_id))[0];
-  // const [update, result] = useDbUpdate(`/users/${user.id}`);
+  const [update, result] = useDbUpdate(`/courses/${edit_id}`);
   const [state, change] = useFormData(validateUserData, courseInfo);
+  const initial_state = state;
+  const navigate = useNavigate();
   const submit = (evt) => {
     evt.preventDefault();
-    if (!state.errors) {
-      // update(state.values);
+    if (!state.errors && state !== initial_state) {
+      update(state.values);
+      // navigate(-1);
     }
   };
 
@@ -65,7 +69,7 @@ export const CourseForm = ({ courses }) => {
       <h2>Course Edit: {course_id}</h2>
       <InputField name="title" text="Course Title" state={state} change={change} />
       <InputField name="meets" text="Meeting Times" state={state} change={change} />
-      <ButtonBar />
+      <ButtonBar message={result?.message} navigate={navigate}/>
     </form>
   )
 };
