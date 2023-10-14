@@ -3,13 +3,14 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, onValue, ref, update} from 'firebase/database';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCqy8l97tEWjvW3V1B0f9bMsMLFk9D4sWk",
-  authDomain: "maxtactoe.firebaseapp.com",
-  databaseURL: "https://maxtactoe.firebaseio.com",
-  projectId: "maxtactoe",
-  storageBucket: "maxtactoe.appspot.com",
-  messagingSenderId: "672040841619",
-  appId: "1:672040841619:web:e488e188d5b93db7753866"
+  apiKey: "AIzaSyBiq1A5Ers5_sWHxv0ITisccZjSXZx9j9s",
+  authDomain: "cs392-react-tutorial-3334d.firebaseapp.com",
+  databaseURL: "https://cs392-react-tutorial-3334d-default-rtdb.firebaseio.com",
+  projectId: "cs392-react-tutorial-3334d",
+  storageBucket: "cs392-react-tutorial-3334d.appspot.com",
+  messagingSenderId: "271011068235",
+  appId: "1:271011068235:web:66d4753349c4175ef6d0ce",
+  measurementId: "G-0LXV6SY7N3"
 };
 
 // Initialize Firebase

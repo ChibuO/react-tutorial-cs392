@@ -10,6 +10,7 @@ import { Modal } from './components/Modal';
 import { Schedule } from './components/Schedule';
 import { getDisabled } from './utilities/time_conflict';
 import { CourseForm } from './CourseForm';
+import { useDbData } from './utilities/firebase';
 
 
 const queryClient = new QueryClient();
@@ -17,13 +18,14 @@ const termOptions = ["Fall", "Winter", "Spring"];
 
 const Main = () => {
   const [termSelection, setSelection] = useState(termOptions[0]);
-  const [data, isLoading, error] = useJsonQuery('https://courses.cs.northwestern.edu/394/guides/data/cs-courses.php');
+  const [data, error] = useDbData('/');
+  // const [data, isLoading, error] = useJsonQuery('https://courses.cs.northwestern.edu/394/guides/data/cs-courses.php');
   const [selectedCourses, setSelectedCourses] = useState([]);
   const [disabledCourses, setDisabledCourses] = useState([]);
   const [openSchedule, setOpenSchedule] = useState(false);
 
   if (error) return <h1>Error loading course data: {`${error}`}</h1>;
-  if (isLoading) return <h1>Loading course data...</h1>;
+  // if (isLoading) return <h1>Loading course data...</h1>;
   if (!data) return <h1>No course data found</h1>;
 
   let courses = Object.entries(data.courses).filter(course => course[1].term === termSelection);
