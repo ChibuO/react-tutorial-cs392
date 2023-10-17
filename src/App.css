@@ -65,3 +65,18 @@ button:active {
   color: rgb(15, 156, 156);
   box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
 }
+
+.banner {
+  position: relative;
+  height: 60px;
+  margin: 10px 20px 0px 20px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-button {
+  position: absolute;
+  right: 0px;
+}
