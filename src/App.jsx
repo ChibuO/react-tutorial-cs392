@@ -4,19 +4,20 @@ import { Banner } from './components/Banner'
 import { CourseList } from './components/CourseList'
 import './App.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useJsonQuery } from './utilities/fetch';
+// import { useJsonQuery } from './utilities/fetch';
 import { MenuBar } from './components/MenuBar';
 import { Modal } from './components/Modal';
 import { Schedule } from './components/Schedule';
 import { getDisabled } from './utilities/time_conflict';
 import { CourseForm } from './CourseForm';
 import { useDbData } from './utilities/firebase';
-
+import { useProfile } from './utilities/profile';
 
 const queryClient = new QueryClient();
 const termOptions = ["Fall", "Winter", "Spring"];
 
 const Main = () => {
+  const [profile, profileLoading, profileError] = useProfile();
   const [termSelection, setSelection] = useState(termOptions[0]);
   const [data, error] = useDbData('/');
   // const [data, isLoading, error] = useJsonQuery('https://courses.cs.northwestern.edu/394/guides/data/cs-courses.php');
@@ -48,12 +49,12 @@ const Main = () => {
     <Modal title={`${termSelection} Class Schedule`} open={openSchedule} close={closeModal}>
       <Schedule selectedCourses={courses.filter(course => selectedCourses.includes(course[0]))} />
     </Modal>
-    <Banner title={data.title} />
+    <Banner title={data.title} profileState={[profile, profileLoading, profileError]}/>
     <Router>
       <Routes>
         <Route path="/" element={<>
           <MenuBar options={termOptions} selection={termSelection} setSelection={setSelection} openModal={openModal} />
-          <CourseList courses={courses} selected={selectedCourses} disabled={disabledCourses} toggleSelected={toggleSelected} />
+          <CourseList courses={courses} selected={selectedCourses} disabled={disabledCourses} toggleSelected={toggleSelected} profile={profile} />
         </>} />
         <Route path="/course-form/:id/edit" element={<CourseForm courses={Object.entries(courses).map(([id, course]) => course)} />} />
       </Routes>

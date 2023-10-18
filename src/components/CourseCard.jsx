@@ -1,14 +1,11 @@
 import './CourseList.css'
 import { RiEdit2Fill } from 'react-icons/ri'
 import { Link } from 'react-router-dom';
-import { useAuthState } from '../utilities/firebase';
 
-export const CourseCard = ({ id, course, selected, disabled, toggleSelected }) => {
-    const [user] = useAuthState();
-
+export const CourseCard = ({ id, course, selected, disabled, toggleSelected, profile }) => {
     return (
         <div className={`card-container ${selected.includes(id) ? 'container-selected' : (disabled.includes(id) ? 'container-disabled' : '')}`}>
-            {user ? <Link to={`/course-form/${id}/edit`}><RiEdit2Fill className="edit-dot" /></Link> : null}
+            {profile?.isAdmin ? <Link to={`/course-form/${id}/edit`}><RiEdit2Fill className="edit-dot" /></Link> : null}
             <div className={`class-card ${selected.includes(id) ? 'selected-card' : (disabled.includes(id) ? 'disabled-card' : 'unselected-card')}`} onClick={() => toggleSelected(id)} >
                 <div>
                     <h3 className='class-card-title'>{course.term} CS{course.number}</h3>
