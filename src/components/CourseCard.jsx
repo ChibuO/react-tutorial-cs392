@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export const CourseCard = ({ id, course, selected, disabled, toggleSelected, profile }) => {
     return (
-        <div className={`card-container ${selected.includes(id) ? 'container-selected' : (disabled.includes(id) ? 'container-disabled' : '')}`}>
+        <div data-cy="course" className={`card-container ${selected.includes(id) ? 'container-selected' : (disabled.includes(id) ? 'container-disabled' : '')}`}>
             {profile?.isAdmin ? <Link to={`/course-form/${id}/edit`}><RiEdit2Fill className="edit-dot" /></Link> : null}
             <div className={`class-card ${selected.includes(id) ? 'selected-card' : (disabled.includes(id) ? 'disabled-card' : 'unselected-card')}`} onClick={() => toggleSelected(id)} >
                 <div>
