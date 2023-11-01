@@ -4,7 +4,7 @@ const TermButton = ({ term, selection, setSelection }) => (
     <div>
         <input type="radio" id={term} className="term-select-btn" checked={term === selection} autoComplete="off"
             onChange={() => setSelection(term)} />
-        <label className="term-select-label" htmlFor={term}>
+        <label data-cy={term} className="term-select-label" htmlFor={term}>
             {term}
         </label>
     </div>
